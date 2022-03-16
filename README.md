@@ -1,4 +1,4 @@
-# Firebase:Firestore Document Poster
+# Firebase(Firestore) Document Poster
 
 ## Installation
 
