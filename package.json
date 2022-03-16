@@ -1,0 +1,16 @@
+{
+  "name": "firebaseposter",
+  "version": "1.0.0",
+  "description": "Firebase firestore document poster",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Anteater333",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^9.6.8",
+    "readline-sync": "^1.4.10"
+  }
+}
