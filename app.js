@@ -10,7 +10,7 @@ import {
 import { readFileSync } from "fs";
 import readlineSync from "readline-sync";
 
-import firebaseConfig from "./firebaseConfig.js";
+import FBC from "./firebasePosterConfig.js";
 
 // reading json data
 const myData = JSON.parse(readFileSync("./data/privateData.json"));
@@ -18,15 +18,16 @@ const myData = JSON.parse(readFileSync("./data/privateData.json"));
 console.log(`Post this dataset to your Firebase Cloud Firestore: \n`);
 console.log(`${JSON.stringify(myData, null, 2)}`);
 
-const answer = readlineSync.question("\nproceed? (y/n) : ");
+const answer = readlineSync.question(
+  `\nCOLLECTION_NAME : ${FBC.COLLECTION_NAME}\nproceed? (y/n) : `
+);
 
 console.log("=-=-=-=-=-=-=-=-=-=-=-=-=");
 
 if (answer == "y" || answer == "Y") {
   // setting fireabase app
-  const app = initializeApp(firebaseConfig);
+  const app = initializeApp(FBC.firebaseConfig);
   const db = getFirestore(app);
-  const colName = "users"; // your collection name
 
   /**
    * read all docs from db
@@ -34,7 +35,7 @@ if (answer == "y" || answer == "Y") {
    * @returns
    */
   async function getUsers(db) {
-    const col = collection(db, colName);
+    const col = collection(db, FBC.COLLECTION_NAME);
     const snapshot = await getDocs(col);
     const list = snapshot.docs.map((doc) => doc.data());
     return list;
@@ -45,12 +46,12 @@ if (answer == "y" || answer == "Y") {
     /** Write all data using batch */
     await (async () => {
       myData.forEach((data) => {
-        batch.set(doc(collection(db, colName)), data);
+        batch.set(doc(collection(db, FBC.COLLECTION_NAME)), data);
       });
       await batch.commit();
     })();
   } else {
-    await addDoc(collection(db, colName), myData);
+    await addDoc(collection(db, FBC.COLLECTION_NAME), myData);
   }
 
   console.log(await getUsers(db));

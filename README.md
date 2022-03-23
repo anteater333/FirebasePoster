@@ -3,7 +3,7 @@
 ## Installation
 
 1. `npm install`
-2. fill `./firebaseConfig.js` with your firebase app configuration
+2. fill `./firebasePosterConfig.js` with your firebase app configuration
 3. make your data to post under `./data/`, and the file's name should be `privateData.json`
 
 ## Run
